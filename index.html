@@ -43,6 +43,18 @@
             font-size: 10pt; /* Matches the text better */
         }
 
+        /* Add this to your CSS */
+        .stamp-header-gap {
+            height: 3.5in; /* This leaves space for the 500 PKR stamp header */
+        }
+        
+        @media print {
+            .stamp-header-gap { display: block; } /* Shows only when printing */
+        }
+        @media screen {
+            .stamp-header-gap { display: none; } /* Hides while you are typing on phone */
+        }
+
         .content { font-size: 10pt; line-height: 1.5; white-space: pre-wrap; text-align: justify; }
         
         /* Urdu Specific */
@@ -118,9 +130,9 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 2. <strong>Annual Rent Increase:</strong> The monthly rent shall automatically increase by <strong>10%</strong> at the completion of every 12-month cycle from the date of signing.
 3. <strong>Monthly Rent & Late Penalties:</strong> Rent is payable in advance by the <strong>10th of every month</strong>. If payment is delayed beyond the 15th, a penalty of <strong>7% of the total monthly rent</strong> will be charged. If the Tenant fails to pay, the amount will be deducted from the security deposit. If the security is exhausted, the Tenant must vacate immediately.
 4. <strong>Security Deposit Structure:</strong> The total Security Deposit is a fixed amount equal to <strong>two (2) months' rent</strong>. The payment schedule for this deposit is as follows:
-• <strong>First Half (Equal to 1 month's rent):</strong> Must be paid within the first <strong>30 days</strong> of tenancy.
-• <strong>Second Half (Equal to 1 month's rent):</strong> Must be paid in full by the end of the <strong>third (3rd) month</strong> of tenancy.
-• <strong>Strict Penalty:</strong> If the Tenant fails to complete the second half of the security payment by the end of the third month, the first half already paid will be <strong>automatically voided (forfeited)</strong>, and the Tenant must vacate the property immediately.
+    • <strong>First Half (Equal to 1 month's rent):</strong> Must be paid within the first <strong>30 days</strong> of tenancy.
+    • <strong>Second Half (Equal to 1 month's rent):</strong> Must be paid in full by the end of the <strong>third (3rd) month</strong> of tenancy.
+    • <strong>Strict Penalty:</strong> If the Tenant fails to complete the second half of the security payment by the end of the third month, the first half already paid will be <strong>automatically voided (forfeited)</strong>, and the Tenant must vacate the property immediately.
 5. <strong>Utility Bill Verification:</strong> The Tenant is responsible for all utility charges (Electricity, Gas, Water, Trash). The Tenant must provide proof of paid bills to the Landlord by the <strong>10th of every month</strong>. Failure to show paid receipts is a breach of contract.
 6. <strong>Bi-Annual Safety & Compliance Inspection:</strong> The Landlord reserves the right to enter and inspect the property every <strong>six (6) months</strong> to ensure safety, structural integrity, and compliance. The Tenant is obligated to facilitate this inspection.
 7. <strong>Inspection & Video Evidence:</strong> The Tenant confirms the property is in pristine condition. A complete video recording has been established as evidence. No future claims regarding pre-existing damages will be entertained.
@@ -128,25 +140,44 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 9. <strong>Final Settlement:</strong> The Security Deposit will be refunded <strong>two (2) months after</strong> the property is vacated (only after the 1-year minimum is met). The Landlord will deduct final unpaid bills and costs for any damages found during the final exit inspection.
 10. <strong>Notice Period:</strong> A <strong>two-month (2) written notice</strong> is mandatory before vacating the property (applicable only after the first year has been completed).
 11. <strong>Legal Compliance:</strong> No Afghan nationals are allowed. The Tenant must be a Pakistani citizen with a valid CNIC and must complete Police Khidmat Markaz verification within 3 days.
-
-<strong>1. SECURITY DEPOSIT TRACKING</strong>
-<table>
-    <tr><th>Installment</th><th>Due Date</th><th>Amount (PKR)</th><th>Date Paid</th><th>Tenant Sign</th><th>Owner</th></tr>
-    <tr><td>1st Half (30 Days)</td><td>Within 1 Month</td><td class="out_rentHalf"></td><td></td><td></td><td></td></tr>
-    <tr><td>2nd Half (90 Days)</td><td>Within 3 Months</td><td class="out_rentHalf"></td><td></td><td></td><td></td></tr>
-</table>
-
-<strong>2. BI-ANNUAL INSPECTION RECORD</strong>
-<table>
-    <tr><th>Visit</th><th>Date</th><th>Condition Status</th><th>Repairs Needed</th><th>T. Sign</th><th>L. Sign</th></tr>
-    <tr><td>6-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td>12-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
-</table>
-
-<div class="signature-grid">
-    <div class="sig-line">LANDLORD</div>
-    <div class="sig-line">TENANT</div>
-</div>
+        
+        <strong>1. SECURITY DEPOSIT TRACKING</strong>
+        <table>
+            <tr><th>Installment</th><th>Due Date</th><th>Amount (PKR)</th><th>Date Paid</th><th>Tenant Sign</th><th>Owner</th></tr>
+            <tr><td>1st Half (30 Days)</td><td>Within 1 Month</td><td class="out_rentHalf"></td><td></td><td></td><td></td></tr>
+            <tr><td>2nd Half (90 Days)</td><td>Within 3 Months</td><td class="out_rentHalf"></td><td></td><td></td><td></td></tr>
+        </table>
+        
+        <strong>2. BI-ANNUAL INSPECTION RECORD</strong>
+        <table>
+            <tr><th>Visit</th><th>Date</th><th>Condition Status</th><th>Repairs Needed</th><th>T. Sign</th><th>L. Sign</th></tr>
+            <tr><td>6-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>12-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>        
+        <div style="margin-top: 20px; font-style: italic; font-size: 9pt; border-top: 1px solid #eee; padding-top: 10px;">
+            <strong>Confirmation:</strong> I, the Tenant, hereby confirm that I have read and understood every clause of this 11-point contract thoroughly. I am signing this agreement with a sound mind, full consciousness, and without any external pressure or duress.
+        </div>
+        
+        <div class="signature-grid">
+            <div class="sig-line">LANDLORD Signature</div>
+            <div class="sig-line">TENANT Signature</div>
+            <div class="sig-line">
+                WITNESS 1<br>
+                <span style="font-weight:normal; font-size:8pt;">
+                    Name: _________________<br>
+                    CNIC: ___________<br>
+                    Signature: ______________
+                </span>
+            </div>
+            <div class="sig-line">
+                WITNESS 2<br>
+                <span style="font-weight:normal; font-size:8pt;">
+                    Name: _________________<br>
+                    CNIC: ___________<br>
+                    Signature: ______________
+                </span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -171,9 +202,9 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 <strong>3۔ کرایہ کی ادائیگی اور جرمانہ:</strong> ماہانہ کرایہ ہر مہینے کی <strong>10 تاریخ</strong> تک ادا کرنا لازمی ہے۔ اگر ادائیگی 15 تاریخ سے تجاوز کر جائے تو کل کرایہ پر <strong>7 فیصد جرمانہ</strong> ادا کرنا ہوگا۔ اگر کرایہ یا جرمانہ ادا نہ ہوا تو یہ سیکیورٹی سے کاٹ لیا جائے گا، اور سیکیورٹی ختم ہونے پر کرایہ دار فوراً مکان خالی کرنے کا پابند ہوگا۔
 
 <strong>4۔ سیکیورٹی ڈپازٹ کی ترتیب:</strong> سیکیورٹی ڈپازٹ کی کل رقم <strong>دو (2) ماہ کے کرایے</strong> کے برابر ہوگی، جس کی ادائیگی درج ذیل طریقے سے ہوگی:
-• <strong>پہلی قسط (ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>30 دن</strong> کے اندر ادا کرنا ہوگی۔
-• <strong>دوسری قسط (مزید ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>تین (3) ماہ</strong> کے اندر ہر صورت ادا کرنا ہوگی۔
-• <strong>سخت سزا:</strong> اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم <strong>خودکار طور پر منسوخ (ضبط)</strong> تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
+    • <strong>پہلی قسط (ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>30 دن</strong> کے اندر ادا کرنا ہوگی۔
+    • <strong>دوسری قسط (مزید ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>تین (3) ماہ</strong> کے اندر ہر صورت ادا کرنا ہوگی۔
+    • <strong>سخت سزا:</strong> اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم <strong>خودکار طور پر منسوخ (ضبط)</strong> تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
 
 <strong>5۔ یوٹیلیٹی بلز کی تصدیق:</strong> بجلی، گیس، پانی اور کوڑا اٹھانے کے بلز کی بروقت ادائیگی کرایہ دار کی ذمہ داری ہے۔ کرایہ دار ہر مہینے کی <strong>10 تاریخ</strong> تک مالک مکان کو ادا شدہ اصل بلز دکھانے کا پابند ہوگا۔
 
@@ -190,9 +221,29 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 <strong>11۔ قانونی تعمیل:</strong> حکومتِ پاکستان کے قوانین کے مطابق کسی بھی افغانی باشندے کو رہنے کی اجازت نہیں ہے۔ کرایہ دار کا پاکستانی ہونا اور 3 دن کے اندر <strong>پولیس خدمت مرکز</strong> سے ویریفیکیشن کروانا لازمی ہے۔
 
 <strong>دستخط</strong>
-<div class="signature-grid">
-    <div class="sig-line">مالک مکان</div>
-    <div class="sig-line">کرایہ دار</div>
+<div style="margin-top: 20px; font-weight: bold; font-size: 11pt; border-top: 1px solid #eee; padding-top: 10px; text-align: right;">
+    تصدِیق: میں بطور کرایہ دار یہ تصدیق کرتا ہوں کہ میں نے اس ۱۱ نکاتی معاہدے کی تمام شرائط کو اچھی طرح پڑھ اور سمجھ لیا ہے۔ میں پورے ہوش و حواس میں، بغیر کسی بیرونی دباؤ کے، اس اقرار نامے پر دستخط کر رہا ہوں۔
+</div>
+
+<div class="signature-grid" style="direction: rtl;">
+    <div class="sig-line">مالک مکان کے دستخط</div>
+    <div class="sig-line">کرایہ دار کے دستخط</div>
+    <div class="sig-line">
+    گواہ نمبر 1<br>
+        <span style="font-weight:normal; font-size:9pt;">
+            نام: _________________<br>
+            شناختی کارڈ: <span class="eng-num">___________</span><br>
+            دستخط: ______________
+        </span>
+    </div>
+    <div class="sig-line">
+    گواہ نمبر 2<br>
+        <span style="font-weight:normal; font-size:9pt;">
+            نام: _________________<br>
+            شناختی کارڈ: <span class="eng-num">___________</span><br>
+            دستخط: ______________
+        </span>
+    </div>
 </div>
     </div>
 </div>
