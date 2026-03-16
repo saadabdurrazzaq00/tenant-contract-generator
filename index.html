@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two-Page Rental Agreement Generator</title>
+    <title>Professional Two-Page Rental Agreement</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
 
@@ -21,41 +21,39 @@
         .a4-page {
             width: 210mm;
             min-height: 297mm;
-            padding: 20mm;
+            padding: 15mm 20mm;
             margin: 20px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             box-sizing: border-box;
-            position: relative;
-            overflow: hidden;
+            page-break-after: always;
         }
 
-        .content { font-size: 10.5pt; line-height: 1.6; white-space: pre-wrap; text-align: justify; }
+        .content { font-size: 10pt; line-height: 1.5; white-space: pre-wrap; text-align: justify; }
         
         /* Urdu Specific */
         .urdu-content { 
             direction: rtl; 
             font-family: 'Noto Nastaliq Urdu', serif; 
-            font-size: 13pt; 
-            line-height: 2.4; 
+            font-size: 11pt; 
+            line-height: 2.1; 
             text-align: right; 
             white-space: pre-wrap;
         }
-        .urdu-content strong, .urdu-content b { font-weight: bold; color: #000; }
 
-        h2, h3 { text-align: center; text-decoration: underline; margin-bottom: 20px; text-transform: uppercase; }
+        h3 { text-align: center; text-decoration: underline; margin-bottom: 15px; text-transform: uppercase; font-size: 14pt; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 9pt; direction: ltr; }
-        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 8.5pt; }
+        th, td { border: 1px solid #000; padding: 6px; text-align: center; }
         th { background-color: #f2f2f2; }
 
-        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 40px; }
-        .sig-line { border-top: 1px solid #000; margin-top: 40px; padding-top: 5px; text-align: center; font-weight: bold; }
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 25px; }
+        .sig-line { border-top: 1px solid #000; margin-top: 30px; padding-top: 5px; text-align: center; font-weight: bold; font-size: 9pt; }
 
         @media print {
             body { background: none; padding: 0; }
             .no-print { display: none; }
-            .a4-page { margin: 0; border: none; box-shadow: none; width: 100%; page-break-after: always; }
+            .a4-page { margin: 0; border: none; box-shadow: none; width: 100%; }
             @page { size: A4; margin: 0; }
         }
     </style>
@@ -63,7 +61,7 @@
 <body>
 
 <div class="no-print">
-    <h2>Contract Details Input</h2>
+    <h2>Contract Data Entry</h2>
     <div class="input-grid">
         <div class="field-group"><label>City</label><input type="text" id="in_city" value="Faisalabad"></div>
         <div class="field-group"><label>Date</label><input type="text" id="in_date" placeholder="17th March"></div>
@@ -82,167 +80,129 @@
         <div class="field-group"><label>Tenant Address</label><input type="text" id="in_tAddr"></div>
     </div>
     <div class="actions">
-        <button class="btn-update" onclick="updateAll()">Update Agreement</button>
-        <button class="btn-print" onclick="window.print()">Print (Front & Back)</button>
+        <button class="btn-update" onclick="updateFields()">Update Values</button>
+        <button class="btn-print" onclick="window.print()">Print Contract</button>
     </div>
 </div>
 
 <div class="a4-page">
     <h3>Rental Agreement</h3>
     <div class="content">
-*This Deed of Agreement* is made at *<strong><span class="out_city">Faisalabad</span></strong>* on this *<strong><span class="out_date">_______</span></strong>* day of March, 2026.
+This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</span></strong> on this <strong><span class="out_date">_______</span></strong> day of March, 2026.
 
-*BETWEEN*
+<strong>BETWEEN</strong>
 
-*<strong><span class="out_lName">_______</span></strong>*, s/o <span class="out_lFname">_______</span>, Resident of <span class="out_lAddr">_______</span>, holding CNIC No: <span class="out_lCnic">_______</span>, hereinafter referred to as the *LANDLORD* (First Party).
+<strong><span class="out_lName">_______</span></strong>, s/o <span class="out_lFname">_______</span>, Resident of <span class="out_lAddr">_______</span>, holding CNIC No: <span class="out_lCnic">_______</span>, hereinafter referred to as the <strong>LANDLORD</strong> (First Party).
 
-*AND*
+<strong>AND</strong>
 
-*<strong><span class="out_tName">_______</span></strong>*, s/o <span class="out_tFname">_______</span>, Resident of <span class="out_tAddr">_______</span>, holding CNIC No: <span class="out_tCnic">_______</span>, hereinafter referred to as the *TENANT* (Second Party).
+<strong><span class="out_tName">_______</span></strong>, s/o <span class="out_tFname">_______</span>, Resident of <span class="out_tAddr">_______</span>, holding CNIC No: <span class="out_tCnic">_______</span>, hereinafter referred to as the <strong>TENANT</strong> (Second Party).
 
-*TERMS AND CONDITIONS*
+<strong>TERMS AND CONDITIONS</strong>
 
-1. *Minimum Residency & Security Forfeiture:* The Tenant is bound by a minimum stay of *one (1) year*. If the Tenant vacates the property for any reason before completing the full 12-month term—*regardless of whether a notice period is provided or not*—the total Security Deposit shall be forfeited in favor of the Landlord and will not be refunded.
-2. *Annual Rent Increase:* The monthly rent shall automatically increase by *10%* at the completion of every 12-month cycle from the date of signing.
-3. *Monthly Rent & Late Penalties:* Rent is payable in advance by the *10th of every month*. If payment is delayed beyond the 15th, a penalty of *7% of the total monthly rent* will be charged. If the Tenant fails to pay, the amount will be deducted from the security deposit. If the security is exhausted, the Tenant must vacate immediately.
-4. *Security Deposit Structure:* The total Security Deposit is a fixed amount equal to *two (2) months' rent*. The payment schedule for this deposit is as follows:
-* *First Half (Equal to 1 month's rent):* Must be paid within the first *30 days* of tenancy.
-* *Second Half (Equal to 1 month's rent):* Must be paid in full by the end of the *third (3rd) month* of tenancy.
-* *Strict Penalty:* If the Tenant fails to complete the second half of the security payment by the end of the third month, the first half already paid will be *automatically voided (forfeited)*, and the Tenant must vacate the property immediately.
-5. *Utility Bill Verification:* The Tenant is responsible for all utility charges (Electricity, Gas, Water, Trash). The Tenant must provide proof of paid bills to the Landlord by the *10th of every month*. Failure to show paid receipts is a breach of contract.
-6. *Bi-Annual Safety & Compliance Inspection:* The Landlord reserves the right to enter and *inspect the property every six (6) months* to ensure safety, structural integrity, and compliance. The Tenant is obligated to facilitate this inspection.
-7. *Inspection & Video Evidence:* The Tenant confirms the property is in pristine condition. A *complete video recording* has been established as evidence. No future claims regarding pre-existing damages will be entertained.
-8. *Maintenance & On-Going Repairs:* All damages occurring during the tenancy (plumbing, electrical, woodwork, paint, etc.) must be repaired by the *Tenant at their own expense immediately*. The Landlord is not responsible for any repair or maintenance costs during the stay.
-9. *Final Settlement:* The Security Deposit will be refunded *two (2) months after* the property is vacated (only after the 1-year minimum is met). The Landlord will deduct final unpaid bills and costs for any damages found during the final exit inspection.
-10. *Notice Period:* A *two-month (2) written notice* is mandatory before vacating the property (applicable only after the first year has been completed).
-11. *Legal Compliance:* No Afghan nationals are allowed. The Tenant must be a Pakistani citizen with a valid CNIC and must complete *Police Khidmat Markaz* verification within 3 days.
+1. <strong>Minimum Residency & Security Forfeiture:</strong> The Tenant is bound by a minimum stay of <strong>one (1) year</strong>. If the Tenant vacates the property for any reason before completing the full 12-month term—regardless of whether a notice period is provided or not—the total Security Deposit shall be forfeited in favor of the Landlord and will not be refunded.
+2. <strong>Annual Rent Increase:</strong> The monthly rent shall automatically increase by <strong>10%</strong> at the completion of every 12-month cycle from the date of signing.
+3. <strong>Monthly Rent & Late Penalties:</strong> Rent is payable in advance by the <strong>10th of every month</strong>. If payment is delayed beyond the 15th, a penalty of <strong>7% of the total monthly rent</strong> will be charged. If the Tenant fails to pay, the amount will be deducted from the security deposit. If the security is exhausted, the Tenant must vacate immediately.
+4. <strong>Security Deposit Structure:</strong> The total Security Deposit is a fixed amount equal to <strong>two (2) months' rent</strong>. The payment schedule for this deposit is as follows:
+• <strong>First Half (Equal to 1 month's rent):</strong> Must be paid within the first <strong>30 days</strong> of tenancy.
+• <strong>Second Half (Equal to 1 month's rent):</strong> Must be paid in full by the end of the <strong>third (3rd) month</strong> of tenancy.
+• <strong>Strict Penalty:</strong> If the Tenant fails to complete the second half of the security payment by the end of the third month, the first half already paid will be <strong>automatically voided (forfeited)</strong>, and the Tenant must vacate the property immediately.
+5. <strong>Utility Bill Verification:</strong> The Tenant is responsible for all utility charges (Electricity, Gas, Water, Trash). The Tenant must provide proof of paid bills to the Landlord by the <strong>10th of every month</strong>. Failure to show paid receipts is a breach of contract.
+6. <strong>Bi-Annual Safety & Compliance Inspection:</strong> The Landlord reserves the right to enter and inspect the property every <strong>six (6) months</strong> to ensure safety, structural integrity, and compliance. The Tenant is obligated to facilitate this inspection.
+7. <strong>Inspection & Video Evidence:</strong> The Tenant confirms the property is in pristine condition. A complete video recording has been established as evidence. No future claims regarding pre-existing damages will be entertained.
+8. <strong>Maintenance & On-Going Repairs:</strong> All damages occurring during the tenancy (plumbing, electrical, woodwork, paint, etc.) must be repaired by the <strong>Tenant at their own expense immediately</strong>. The Landlord is not responsible for any repair or maintenance costs during the stay.
+9. <strong>Final Settlement:</strong> The Security Deposit will be refunded <strong>two (2) months after</strong> the property is vacated (only after the 1-year minimum is met). The Landlord will deduct final unpaid bills and costs for any damages found during the final exit inspection.
+10. <strong>Notice Period:</strong> A <strong>two-month (2) written notice</strong> is mandatory before vacating the property (applicable only after the first year has been completed).
+11. <strong>Legal Compliance:</strong> No Afghan nationals are allowed. The Tenant must be a Pakistani citizen with a valid CNIC and must complete Police Khidmat Markaz verification within 3 days.
 
-*SIGNATURES*
+<strong>1. SECURITY DEPOSIT TRACKING</strong>
+<table>
+    <tr><th>Installment</th><th>Due Date</th><th>Amount (PKR)</th><th>Date Paid</th><th>Tenant Sign</th><th>Owner</th></tr>
+    <tr><td>1st Half (30 Days)</td><td>Within 1 Month</td><td class="out_rentHalf"></td><td></td><td></td><td></td></tr>
+    <tr><td>2nd Half (90 Days)</td><td>Within 3 Months</td><td class="out_rentHalf"></td><td></td><td></td><td></td></tr>
+</table>
+
+<strong>2. BI-ANNUAL INSPECTION RECORD</strong>
+<table>
+    <tr><th>Visit</th><th>Date</th><th>Condition Status</th><th>Repairs Needed</th><th>T. Sign</th><th>L. Sign</th></tr>
+    <tr><td>6-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>12-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
 <div class="signature-grid">
     <div class="sig-line">LANDLORD</div>
     <div class="sig-line">TENANT</div>
-    <div class="sig-line">WITNESS 1 (Name & CNIC)</div>
-    <div class="sig-line">WITNESS 2 (Name & CNIC)</div>
 </div>
     </div>
 </div>
 
 <div class="a4-page">
     <div class="urdu-content">
-*اقرار نامہ کرایہ داری*
+<h3 style="font-family: Arial;">اقرار نامہ کرایہ داری</h3>
+<strong>شروع اللہ کے نام سے جو نہایت مہربان اور رحم کرنے والا ہے۔</strong>
 
-*شروع اللہ کے نام سے جو نہایت مہربان اور رحم کرنے والا ہے۔*
+یہ اقرار نامہ آج بتاریخ <strong><span class="out_date">_______</span></strong> بمقام <strong><span class="out_city">فیصل آباد</span></strong> فریقین کے مابین طے پایا۔
 
-یہ اقرار نامہ آج بتاریخ **<span class="out_date">_______</span>** بمقام **<span class="out_city">فیصل آباد</span>** فریقین کے مابین طے پایا۔
+<strong>فریقین</strong>
 
-**فریقین**
+<strong>1۔ مالک مکان (فریقِ اول):</strong> <strong><span class="out_lName">_______</span></strong> ولد <span class="out_lFname">_______</span>، ساکن <span class="out_lAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_lCnic">_______</span>۔
+<strong>2۔ کرایہ دار (فریقِ دوم):</strong> <strong><span class="out_tName">_______</span></strong> ولد <span class="out_tFname">_______</span>، ساکن <span class="out_tAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_tCnic">_______</span>۔
 
-**1۔ مالک مکان (فریقِ اول):** **<span class="out_lName">_______</span>** ولد <span class="out_lFname">_______</span>، ساکن <span class="out_lAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_lCnic">_______</span>۔
-**2۔ کرایہ دار (فریقِ دوم):** **<span class="out_tName">_______</span>** ولد <span class="out_tFname">_______</span>، ساکن <span class="out_tAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_tCnic">_______</span>۔
+<strong>شرائط و ضوابط</strong>
 
-**شرائط و ضوابط**
+<strong>1۔ کم از کم مدت و ضمانت کی ضبطی:</strong> کرایہ دار کم از کم <strong>ایک سال</strong> رہنے کا پابند ہے۔ اگر کرایہ دار ایک سال کی مدت مکمل ہونے سے پہلے مکان خالی کرتا ہے—خواہ نوٹس دیا گیا ہو یا نہیں—تو مکمل سیکیورٹی ڈپازٹ مالک مکان کے حق میں ضبط کر لیا جائے گا اور واپسی نہ ہوگی۔
 
-**1۔ کم از کم مدت و ضمانت کی ضبطی:** کرایہ دار کم از کم **ایک سال** رہنے کا پابند ہے۔ اگر کرایہ دار ایک سال کی مدت مکمل ہونے سے پہلے مکان خالی کرتا ہے—خواہ نوٹس دیا گیا ہو یا نہیں—تو مکمل سیکیورٹی ڈپازٹ مالک مکان کے حق میں ضبط کر لیا جائے گا اور واپسی نہ ہوگی۔
+<strong>2۔ سالانہ اضافہ:</strong> ہر بارہ (12) ماہ کی مدت مکمل ہونے پر ماہانہ کرایہ میں <strong>10 فیصد</strong> خودکار اضافہ ہوگا۔
 
-**2۔ سالانہ اضافہ:** ہر بارہ (12) ماہ کی مدت مکمل ہونے پر ماہانہ کرایہ میں **10 فیصد** خودکار اضافہ ہوگا۔
+<strong>3۔ کرایہ کی ادائیگی اور جرمانہ:</strong> ماہانہ کرایہ ہر مہینے کی <strong>10 تاریخ</strong> تک ادا کرنا لازمی ہے۔ اگر ادائیگی 15 تاریخ سے تجاوز کر جائے تو کل کرایہ پر <strong>7 فیصد جرمانہ</strong> ادا کرنا ہوگا۔ اگر کرایہ یا جرمانہ ادا نہ ہوا تو یہ سیکیورٹی سے کاٹ لیا جائے گا، اور سیکیورٹی ختم ہونے پر کرایہ دار فوراً مکان خالی کرنے کا پابند ہوگا۔
 
-**3۔ کرایہ کی ادائیگی اور جرمانہ:** ماہانہ کرایہ ہر مہینے کی **10 تاریخ** تک ادا کرنا لازمی ہے۔ اگر ادائیگی 15 تاریخ سے تجاوز کر جائے تو کل کرایہ پر **7 فیصد جرمانہ** ادا کرنا ہوگا۔ اگر کرایہ یا جرمانہ ادا نہ ہوا تو یہ سیکیورٹی سے کاٹ لیا جائے گا، اور سیکیورٹی ختم ہونے پر کرایہ دار فوراً مکان خالی کرنے کا پابند ہوگا۔
+<strong>4۔ سیکیورٹی ڈپازٹ کی ترتیب:</strong> سیکیورٹی ڈپازٹ کی کل رقم <strong>دو (2) ماہ کے کرایے</strong> کے برابر ہوگی، جس کی ادائیگی درج ذیل طریقے سے ہوگی:
+• <strong>پہلی قسط (ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>30 دن</strong> کے اندر ادا کرنا ہوگی۔
+• <strong>دوسری قسط (مزید ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>تین (3) ماہ</strong> کے اندر ہر صورت ادا کرنا ہوگی۔
+• <strong>سخت سزا:</strong> اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم <strong>خودکار طور پر منسوخ (ضبط)</strong> تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
 
-**4۔ سیکیورٹی ڈپازٹ کی ترتیب:** سیکیورٹی ڈپازٹ کی کل رقم **دو (2) ماہ کے کرایے** کے برابر ہوگی، جس کی ادائیگی درج ذیل طریقے سے ہوگی:
+<strong>5۔ یوٹیلیٹی بلز کی تصدیق:</strong> بجلی، گیس، پانی اور کوڑا اٹھانے کے بلز کی بروقت ادائیگی کرایہ دار کی ذمہ داری ہے۔ کرایہ دار ہر مہینے کی <strong>10 تاریخ</strong> تک مالک مکان کو ادا شدہ اصل بلز دکھانے کا پابند ہوگا۔
 
-* **پہلی قسط (ایک ماہ کا کرایہ):** کرایہ داری کے پہلے **30 دن** کے اندر ادا کرنا ہوگی۔
-* **دوسری قسط (مزید ایک ماہ کا کرایہ):** کرایہ داری کے پہلے **تین (3) ماہ** کے اندر ہر صورت ادا کرنا ہوگی۔
-* **سخت سزا:** اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم **خودکار طور پر منسوخ (ضبط)** تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
+<strong>6۔ ششماہی معائنہ (Bi-Annual Inspection):</strong> مالک مکان یا ان کا نمائندہ ہر <strong>چھ (6) ماہ</strong> بعد مکان کی حفاظت اور قانونی حالت چیک کرنے کے لیے معائنہ کر سکے گا۔ کرایہ دار اس معائنے میں مکمل تعاون کرنے کا پابند ہے۔
 
-**5۔ یوٹیلیٹی بلز کی تصدیق:** بجلی، گیس، پانی اور کوڑا اٹھانے کے بلز کی بروقت ادائیگی کرایہ دار کی ذمہ داری ہے۔ کرایہ دار ہر مہینے کی **10 تاریخ** تک مالک مکان کو ادا شدہ اصل بلز دکھانے کا پابند ہوگا۔
+<strong>7۔ ویڈیو ثبوت اور معائنہ:</strong> کرایہ دار نے قبضہ لینے سے پہلے مکان کی مکمل تسلی کر لی ہے۔ مکان کی <strong>مکمل ویڈیو</strong> ثبوت کے طور پر بنا لی گئی ہے۔ بعد میں کسی بھی قسم کا دعویٰ کہ "یہ پہلے سے ٹوٹا ہوا تھا" قابلِ قبول نہیں ہوگا۔
 
-**6۔ ششماہی معائنہ (Bi-Annual Inspection):** مالک مکان یا ان کا نمائندہ ہر **چھ (6) ماہ** بعد مکان کی حفاظت اور قانونی حالت چیک کرنے کے لیے معائنہ کر سکے گا۔ کرایہ دار اس معائنے میں مکمل تعاون کرنے کا پابند ہے۔
+<strong>8۔ مرمت اور دیکھ بھال:</strong> دورانِ رہائش مکان میں ہونے والی ہر طرح کی مرمت (پلمبنگ، بجلی، لکڑی کا کام، پینٹ وغیرہ) کرایہ دار <strong>فوراً اپنے خرچے پر</strong> کروانے کا ذمہ دار ہوگا۔ مالک مکان کسی بھی قسم کے مرمتی اخراجات کا ذمہ دار نہ ہوگا۔
 
-**7۔ ویڈیو ثبوت اور معائنہ:** کرایہ دار نے قبضہ لینے سے پہلے مکان کی مکمل تسلی کر لی ہے۔ مکان کی **مکمل ویڈیو** ثبوت کے طور پر بنا لی گئی ہے۔ بعد میں کسی بھی قسم کا دعویٰ کہ "یہ پہلے سے ٹوٹا ہوا تھا" قابلِ قبول نہیں ہوگا۔
+<strong>9۔ سیکیورٹی کی واپسی:</strong> سیکیورٹی کی رقم مکان خالی کرنے کے <strong>دو (2) ماہ بعد</strong> (ایک سال کی شرط پوری ہونے پر) واپس کی جائے گی۔ آخری بلز اور وہ نقصانات جو کرایہ دار نے درست نہ کیے ہوں، ان کے اخراجات منہا کر کے باقی رقم رسیدات کے ساتھ واپس ہوگی۔
 
-**8۔ مرمت اور دیکھ بھال:** دورانِ رہائش مکان میں ہونے والی ہر طرح کی مرمت (پلمبنگ، بجلی، لکڑی کا کام، پینٹ وغیرہ) کرایہ دار **فوراً اپنے خرچے پر** کروانے کا ذمہ دار ہوگا۔ مالک مکان کسی بھی قسم کے مرمتی اخراجات کا ذمہ دار نہ ہوگا۔
+<strong>10۔ نوٹس کی مدت:</strong> ایک سال مکمل ہونے کے بعد، مکان خالی کرنے کے لیے <strong>دو (2) ماہ کا تحریری نوٹس</strong> دینا لازمی ہے۔
 
-**9۔ سیکیورٹی کی واپسی:** سیکیورٹی کی رقم مکان خالی کرنے کے **دو (2) ماہ بعد** (ایک سال کی شرط پوری ہونے پر) واپس کی جائے گی۔ آخری بلز اور وہ نقصانات جو کرایہ دار نے درست نہ کیے ہوں، ان کے اخراجات منہا کر کے باقی رقم رسیدات کے ساتھ واپس ہوگی۔
+<strong>11۔ قانونی تعمیل:</strong> حکومتِ پاکستان کے قوانین کے مطابق کسی بھی افغانی باشندے کو رہنے کی اجازت نہیں ہے۔ کرایہ دار کا پاکستانی ہونا اور 3 دن کے اندر <strong>پولیس خدمت مرکز</strong> سے ویریفیکیشن کروانا لازمی ہے۔
 
-**10۔ نوٹس کی مدت:** ایک سال مکمل ہونے کے بعد، مکان خالی کرنے کے لیے **دو (2) ماہ کا تحریری نوٹس** دینا لازمی ہے۔
-
-**11۔ قانونی تعمیل:** حکومتِ پاکستان کے قوانین کے مطابق کسی بھی افغانی باشندے کو رہنے کی اجازت نہیں ہے۔ کرایہ دار کا پاکستانی ہونا اور 3 دن کے اندر **پولیس خدمت مرکز** سے ویریفیکیشن کروانا لازمی ہے۔
-
-**دستخط**
-<div class="signature-grid" style="direction: rtl;">
+<strong>دستخط</strong>
+<div class="signature-grid">
     <div class="sig-line">مالک مکان</div>
     <div class="sig-line">کرایہ دار</div>
-    <div class="sig-line">گواہ نمبر 1</div>
-    <div class="sig-line">گواہ نمبر 2</div>
-</div>
-
-<div style="direction: ltr; margin-top: 30px; border-top: 1px dashed #000; padding-top: 20px;">
-    <strong>1. SECURITY DEPOSIT TRACKING (2 Months Total)</strong>
-    <table>
-        <tr>
-            <th>Installment</th>
-            <th>Due Date</th>
-            <th>Amount (PKR)</th>
-            <th>Date Paid</th>
-            <th>Tenant Sign</th>
-            <th>Owner Sign</th>
-        </tr>
-        <tr>
-            <td>1st Half (30 Days)</td>
-            <td>Within 1 Month</td>
-            <td class="out_rentHalf"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>2nd Half (90 Days)</td>
-            <td>Within 3 Months</td>
-            <td class="out_rentHalf"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-    <br>
-    <strong>2. BI-ANNUAL INSPECTION RECORD</strong>
-    <table>
-        <tr>
-            <th>Visit</th>
-            <th>Date</th>
-            <th>Structural Condition</th>
-            <th>Repairs Needed</th>
-            <th>Sign (T)</th>
-            <th>Sign (L)</th>
-        </tr>
-        <tr><td>6-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>12-Month</td><td></td><td></td><td></td><td></td><td></td></tr>
-    </table>
 </div>
     </div>
 </div>
 
 <script>
-    function updateAll() {
-        const mapping = {
+    function updateFields() {
+        const map = {
             'in_city': 'out_city', 'in_date': 'out_date', 'in_lName': 'out_lName',
             'in_lFname': 'out_lFname', 'in_lCnic': 'out_lCnic', 'in_lAddr': 'out_lAddr',
             'in_tName': 'out_tName', 'in_tFname': 'out_tFname', 'in_tCnic': 'out_tCnic', 'in_tAddr': 'out_tAddr'
         };
 
-        for (let key in mapping) {
+        for (let key in map) {
             const val = document.getElementById(key).value || "_______";
-            const elements = document.getElementsByClassName(mapping[key]);
-            for(let el of elements) { el.innerText = val; }
+            const els = document.getElementsByClassName(map[key]);
+            for(let el of els) { el.innerText = val; }
         }
 
         const rent = document.getElementById('in_rent').value;
         if(rent) {
-            const logFields = document.getElementsByClassName('out_rentHalf');
-            for(let field of logFields) { field.innerText = rent; }
+            const fields = document.getElementsByClassName('out_rentHalf');
+            for(let f of fields) { f.innerText = rent; }
         }
     }
 </script>
-
 </body>
 </html>
