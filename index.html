@@ -62,9 +62,18 @@
             direction: rtl; 
             font-family: 'Noto Nastaliq Urdu', serif; 
             font-size: 11pt; 
-            line-height: 2.4; 
+            line-height: 2.5; 
             text-align: right; 
             white-space: pre-wrap;
+        }
+
+        /* Specific fix for bold Urdu */
+        .urdu-content strong, 
+        .urdu-content b {
+            font-weight: bold;
+            color: #000;
+            /* This adds a tiny "outline" to make it look thick and crisp */
+            text-shadow: 0.5px 0 0 #000, -0.5px 0 0 #000, 0 0.5px 0 #000, 0 -0.5px 0 #000;
         }
 
         h3 { text-align: center; text-decoration: underline; margin-bottom: 15px; text-transform: uppercase; font-size: 14pt; }
@@ -79,8 +88,12 @@
         @media print {
             body { background: none; padding: 0; }
             .no-print { display: none; }
-            .a4-page { margin: 0; border: none; box-shadow: none; width: 100%; }
+            .a4-page { margin: 50; border: none; box-shadow: none; width: 100%; }
             @page { size: A4; margin: 0; }
+        }
+
+        .continuation-page {
+            padding-top: 1.5in !important;
         }
     </style>
 </head>
@@ -90,7 +103,10 @@
     <h2>Contract Data Entry</h2>
     <div class="input-grid">
         <div class="field-group"><label>City</label><input type="text" id="in_city" value="Faisalabad"></div>
-        <div class="field-group"><label>Date</label><input type="text" id="in_date" placeholder="17th March"></div>
+        <div class="field-group">
+            <label>Date</label>
+            <input type="date" id="in_date">
+        </div>
         <div class="field-group"><label>Rent Amount (PKR)</label><input type="number" id="in_rent" placeholder="30000"></div>
     </div>
     <div class="input-grid">
@@ -114,7 +130,7 @@
 <div class="a4-page">
     <h3>Rental Agreement</h3>
     <div class="content">
-This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</span></strong> on this <strong><span class="out_date">_______</span></strong> day of March, 2026.
+This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</span></strong> on this <strong><span class="out_date">_______</span></strong>
 
 <strong>BETWEEN</strong>
 
@@ -199,33 +215,32 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 
 <strong>شرائط و ضوابط</strong>
 
-<strong>1۔ کم از کم مدت و ضمانت کی ضبطی:</strong> کرایہ دار کم از کم <strong>ایک سال</strong> رہنے کا پابند ہے۔ اگر کرایہ دار ایک سال کی مدت مکمل ہونے سے پہلے مکان خالی کرتا ہے—خواہ نوٹس دیا گیا ہو یا نہیں—تو مکمل سیکیورٹی ڈپازٹ مالک مکان کے حق میں ضبط کر لیا جائے گا اور واپسی نہ ہوگی۔
+<strong>1۔ کم از کم مدت و ضمانت کی ضبطی: </strong> کرایہ دار کم از کم <strong>ایک سال</strong> رہنے کا پابند ہے۔ اگر کرایہ دار ایک سال کی مدت مکمل ہونے سے پہلے مکان خالی کرتا ہے—خواہ نوٹس دیا گیا ہو یا نہیں—تو مکمل سیکیورٹی ڈپازٹ مالک مکان کے حق میں ضبط کر لیا جائے گا اور واپسی نہ ہوگی۔
 
-<strong>2۔ سالانہ اضافہ:</strong> ہر بارہ (12) ماہ کی مدت مکمل ہونے پر ماہانہ کرایہ میں <strong>10 فیصد</strong> خودکار اضافہ ہوگا۔
+<strong>2۔ سالانہ اضافہ: </strong> ہر بارہ (12) ماہ کی مدت مکمل ہونے پر ماہانہ کرایہ میں <strong>10 فیصد</strong> خودکار اضافہ ہوگا۔
 
-<strong>3۔ کرایہ کی ادائیگی اور جرمانہ:</strong> ماہانہ کرایہ ہر مہینے کی <strong>10 تاریخ</strong> تک ادا کرنا لازمی ہے۔ اگر ادائیگی 15 تاریخ سے تجاوز کر جائے تو کل کرایہ پر <strong>7 فیصد جرمانہ</strong> ادا کرنا ہوگا۔ اگر کرایہ یا جرمانہ ادا نہ ہوا تو یہ سیکیورٹی سے کاٹ لیا جائے گا، اور سیکیورٹی ختم ہونے پر کرایہ دار فوراً مکان خالی کرنے کا پابند ہوگا۔
+<strong>3۔ کرایہ کی ادائیگی اور جرمانہ: </strong> ماہانہ کرایہ ہر مہینے کی <strong>10 تاریخ</strong> تک ادا کرنا لازمی ہے۔ اگر ادائیگی 15 تاریخ سے تجاوز کر جائے تو کل کرایہ پر <strong>7 فیصد جرمانہ</strong> ادا کرنا ہوگا۔ اگر کرایہ یا جرمانہ ادا نہ ہوا تو یہ سیکیورٹی سے کاٹ لیا جائے گا، اور سیکیورٹی ختم ہونے پر کرایہ دار فوراً مکان خالی کرنے کا پابند ہوگا۔
 
-<strong>4۔ سیکیورٹی ڈپازٹ کی ترتیب:</strong> سیکیورٹی ڈپازٹ کی کل رقم <strong>دو (2) ماہ کے کرایے</strong> کے برابر ہوگی، جس کی ادائیگی درج ذیل طریقے سے ہوگی:
-    • <strong>پہلی قسط (ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>30 دن</strong> کے اندر ادا کرنا ہوگی۔
-    • <strong>دوسری قسط (مزید ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>تین (3) ماہ</strong> کے اندر ہر صورت ادا کرنا ہوگی۔
-    • <strong>سخت سزا:</strong> اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم <strong>خودکار طور پر منسوخ (ضبط)</strong> تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
+<strong>4۔ سیکیورٹی ڈپازٹ کی ترتیب: </strong> سیکیورٹی ڈپازٹ کی کل رقم <strong>دو (2) ماہ کے کرایے</strong> کے برابر ہوگی، جس کی ادائیگی درج ذیل طریقے سے ہوگی:
+    •   <strong>پہلی قسط (ایک ماہ کا کرایہ): </strong> کرایہ داری کے پہلے <strong>30 دن</strong> کے اندر ادا کرنا ہوگی۔
+    •   <strong>دوسری قسط (مزید ایک ماہ کا کرایہ): </strong> کرایہ داری کے پہلے <strong>تین (3) ماہ</strong> کے اندر ہر صورت ادا کرنا ہوگی۔
+    •   <strong>سخت سزا: </strong> اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم <strong>خودکار طور پر منسوخ (ضبط)</strong> تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
 
-<strong>5۔ یوٹیلیٹی بلز کی تصدیق:</strong> بجلی، گیس، پانی اور کوڑا اٹھانے کے بلز کی بروقت ادائیگی کرایہ دار کی ذمہ داری ہے۔ کرایہ دار ہر مہینے کی <strong>10 تاریخ</strong> تک مالک مکان کو ادا شدہ اصل بلز دکھانے کا پابند ہوگا۔
+<strong>5۔ یوٹیلیٹی بلز کی تصدیق: </strong> بجلی، گیس، پانی اور کوڑا اٹھانے کے بلز کی بروقت ادائیگی کرایہ دار کی ذمہ داری ہے۔ کرایہ دار ہر مہینے کی <strong>10 تاریخ</strong> تک مالک مکان کو ادا شدہ اصل بلز دکھانے کا پابند ہوگا۔
 
-<strong>6۔ ششماہی معائنہ (Bi-Annual Inspection):</strong> مالک مکان یا ان کا نمائندہ ہر <strong>چھ (6) ماہ</strong> بعد مکان کی حفاظت اور قانونی حالت چیک کرنے کے لیے معائنہ کر سکے گا۔ کرایہ دار اس معائنے میں مکمل تعاون کرنے کا پابند ہے۔
+<strong>6۔ ششماہی معائنہ (Bi-Annual Inspection): </strong> مالک مکان یا ان کا نمائندہ ہر <strong>چھ (6) ماہ</strong> بعد مکان کی حفاظت اور قانونی حالت چیک کرنے کے لیے معائنہ کر سکے گا۔ کرایہ دار اس معائنے میں مکمل تعاون کرنے کا پابند ہے۔
 
-<strong>7۔ ویڈیو ثبوت اور معائنہ:</strong> کرایہ دار نے قبضہ لینے سے پہلے مکان کی مکمل تسلی کر لی ہے۔ مکان کی <strong>مکمل ویڈیو</strong> ثبوت کے طور پر بنا لی گئی ہے۔ بعد میں کسی بھی قسم کا دعویٰ کہ "یہ پہلے سے ٹوٹا ہوا تھا" قابلِ قبول نہیں ہوگا۔
+<strong>7۔ ویڈیو ثبوت اور معائنہ: </strong> کرایہ دار نے قبضہ لینے سے پہلے مکان کی مکمل تسلی کر لی ہے۔ مکان کی <strong>مکمل ویڈیو</strong> ثبوت کے طور پر بنا لی گئی ہے۔ بعد میں کسی بھی قسم کا دعویٰ کہ "یہ پہلے سے ٹوٹا ہوا تھا" قابلِ قبول نہیں ہوگا۔
 
-<strong>8۔ مرمت اور دیکھ بھال:</strong> دورانِ رہائش مکان میں ہونے والی ہر طرح کی مرمت (پلمبنگ، بجلی، لکڑی کا کام، پینٹ وغیرہ) کرایہ دار <strong>فوراً اپنے خرچے پر</strong> کروانے کا ذمہ دار ہوگا۔ مالک مکان کسی بھی قسم کے مرمتی اخراجات کا ذمہ دار نہ ہوگا۔
+<strong>8۔ مرمت اور دیکھ بھال: </strong> دورانِ رہائش مکان میں ہونے والی ہر طرح کی مرمت (پلمبنگ، بجلی، لکڑی کا کام، پینٹ وغیرہ) کرایہ دار <strong>فوراً اپنے خرچے پر</strong> کروانے کا ذمہ دار ہوگا۔ مالک مکان کسی بھی قسم کے مرمتی اخراجات کا ذمہ دار نہ ہوگا۔
 
-<strong>9۔ سیکیورٹی کی واپسی:</strong> سیکیورٹی کی رقم مکان خالی کرنے کے <strong>دو (2) ماہ بعد</strong> (ایک سال کی شرط پوری ہونے پر) واپس کی جائے گی۔ آخری بلز اور وہ نقصانات جو کرایہ دار نے درست نہ کیے ہوں، ان کے اخراجات منہا کر کے باقی رقم رسیدات کے ساتھ واپس ہوگی۔
+<strong>9۔ سیکیورٹی کی واپسی: </strong> سیکیورٹی کی رقم مکان خالی کرنے کے <strong>دو (2) ماہ بعد</strong> (ایک سال کی شرط پوری ہونے پر) واپس کی جائے گی۔ آخری بلز اور وہ نقصانات جو کرایہ دار نے درست نہ کیے ہوں، ان کے اخراجات منہا کر کے باقی رقم رسیدات کے ساتھ واپس ہوگی۔
 
-<strong>10۔ نوٹس کی مدت:</strong> ایک سال مکمل ہونے کے بعد، مکان خالی کرنے کے لیے <strong>دو (2) ماہ کا تحریری نوٹس</strong> دینا لازمی ہے۔
+<strong>10۔ نوٹس کی مدت: </strong> ایک سال مکمل ہونے کے بعد، مکان خالی کرنے کے لیے <strong>دو (2) ماہ کا تحریری نوٹس</strong> دینا لازمی ہے۔
 
-<strong>11۔ قانونی تعمیل:</strong> حکومتِ پاکستان کے قوانین کے مطابق کسی بھی افغانی باشندے کو رہنے کی اجازت نہیں ہے۔ کرایہ دار کا پاکستانی ہونا اور 3 دن کے اندر <strong>پولیس خدمت مرکز</strong> سے ویریفیکیشن کروانا لازمی ہے۔
+<strong>11۔ قانونی تعمیل: </strong> حکومتِ پاکستان کے قوانین کے مطابق کسی بھی افغانی باشندے کو رہنے کی اجازت نہیں ہے۔ کرایہ دار کا پاکستانی ہونا اور 3 دن کے اندر <strong>پولیس خدمت مرکز</strong> سے ویریفیکیشن کروانا لازمی ہے۔
 
-<strong>دستخط</strong>
-<div style="margin-top: 20px; font-weight: bold; font-size: 11pt; border-top: 1px solid #eee; padding-top: 10px; text-align: right;">
+<div style="margin-top: 10px; font-weight: bold; font-size: 11pt; border-top: 1px solid #eee; padding-top: 10px; text-align: right;">
     تصدِیق: میں بطور کرایہ دار یہ تصدیق کرتا ہوں کہ میں نے اس ۱۱ نکاتی معاہدے کی تمام شرائط کو اچھی طرح پڑھ اور سمجھ لیا ہے۔ میں پورے ہوش و حواس میں، بغیر کسی بیرونی دباؤ کے، اس اقرار نامے پر دستخط کر رہا ہوں۔
 </div>
 
@@ -260,23 +275,40 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 <script>
     function updateFields() {
         const map = {
-            'in_city': 'out_city', 'in_date': 'out_date', 'in_lName': 'out_lName',
+            'in_city': 'out_city', 'in_lName': 'out_lName',
             'in_lFname': 'out_lFname', 'in_lCnic': 'out_lCnic', 'in_lAddr': 'out_lAddr',
             'in_tName': 'out_tName', 'in_tFname': 'out_tFname', 'in_tCnic': 'out_tCnic', 'in_tAddr': 'out_tAddr'
         };
-    
+
+        // 1. Handle regular text fields
         for (let key in map) {
             let val = document.getElementById(key).value || "_______";
-            
-            // Auto-format CNIC with dashes if it's a 13-digit number
             if (key.includes('Cnic') && val.length === 13 && !val.includes('-')) {
                 val = val.replace(/(\d{5})(\d{7})(\d{1})/, "$1-$2-$3");
             }
-    
             const els = document.getElementsByClassName(map[key]);
             for(let el of els) { el.innerText = val; }
         }
 
+        // 2. Handle the Date Selection
+        const dateVal = document.getElementById('in_date').value;
+        if(dateVal) {
+            const dateObj = new Date(dateVal);
+            
+            // This creates the exact "March 12, 2026" format
+            const options = { month: 'long', day: 'numeric', year: 'numeric' };
+            const formattedDate = dateObj.toLocaleDateString('en-US', options);
+            
+            // This removes the comma if you want it exactly like your screenshot
+            const finalDate = formattedDate.replace(',', '');
+
+            const dateOuts = document.getElementsByClassName('out_date');
+            for(let el of dateOuts) { 
+                el.innerText = finalDate; 
+            }
+        }
+
+        // 3. Handle Rent
         const rent = document.getElementById('in_rent').value;
         if(rent) {
             const fields = document.getElementsByClassName('out_rentHalf');
