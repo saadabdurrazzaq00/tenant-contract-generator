@@ -17,6 +17,12 @@
         .btn-update { background-color: #0061f2; color: white; }
         .btn-print { background-color: #00ac69; color: white; margin-left: 10px; }
 
+        @media (max-width: 600px) {
+            .no-print { padding: 15px; margin: 10px; }
+            .input-grid { grid-template-columns: 1fr; gap: 10px; }
+            input { font-size: 16px; } /* Prevents iOS zoom */
+        }
+
         /* A4 Page Styling */
         .a4-page {
             width: 210mm;
@@ -29,6 +35,14 @@
             page-break-after: always;
         }
 
+        .eng-num {
+            font-family: 'Segoe UI', Arial, sans-serif !important;
+            direction: ltr;
+            unicode-bidi: embed;
+            display: inline-block;
+            font-size: 10pt; /* Matches the text better */
+        }
+
         .content { font-size: 10pt; line-height: 1.5; white-space: pre-wrap; text-align: justify; }
         
         /* Urdu Specific */
@@ -36,7 +50,7 @@
             direction: rtl; 
             font-family: 'Noto Nastaliq Urdu', serif; 
             font-size: 11pt; 
-            line-height: 2.1; 
+            line-height: 2.4; 
             text-align: right; 
             white-space: pre-wrap;
         }
@@ -145,8 +159,8 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
 
 <strong>فریقین</strong>
 
-<strong>1۔ مالک مکان (فریقِ اول):</strong> <strong><span class="out_lName">_______</span></strong> ولد <span class="out_lFname">_______</span>، ساکن <span class="out_lAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_lCnic">_______</span>۔
-<strong>2۔ کرایہ دار (فریقِ دوم):</strong> <strong><span class="out_tName">_______</span></strong> ولد <span class="out_tFname">_______</span>، ساکن <span class="out_tAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_tCnic">_______</span>۔
+<strong>1۔ مالک مکان (فریقِ اول):</strong> <strong><span class="out_lName">_______</span></strong> ولد <span class="out_lFname">_______</span>، ساکن <span class="out_lAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_lCnic eng-num">_______</span>۔
+<strong>2۔ کرایہ دار (فریقِ دوم):</strong> <strong><span class="out_tName">_______</span></strong> ولد <span class="out_tFname">_______</span>، ساکن <span class="out_tAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_tCnic eng-num">_______</span>۔
 
 <strong>شرائط و ضوابط</strong>
 
@@ -190,9 +204,15 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
             'in_lFname': 'out_lFname', 'in_lCnic': 'out_lCnic', 'in_lAddr': 'out_lAddr',
             'in_tName': 'out_tName', 'in_tFname': 'out_tFname', 'in_tCnic': 'out_tCnic', 'in_tAddr': 'out_tAddr'
         };
-
+    
         for (let key in map) {
-            const val = document.getElementById(key).value || "_______";
+            let val = document.getElementById(key).value || "_______";
+            
+            // Auto-format CNIC with dashes if it's a 13-digit number
+            if (key.includes('Cnic') && val.length === 13 && !val.includes('-')) {
+                val = val.replace(/(\d{5})(\d{7})(\d{1})/, "$1-$2-$3");
+            }
+    
             const els = document.getElementsByClassName(map[key]);
             for(let el of els) { el.innerText = val; }
         }
