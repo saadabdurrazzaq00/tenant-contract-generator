@@ -3,104 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rental Contract Generator - dual Language</title>
+    <title>Legal Rental Agreement Generator</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
-        .no-print { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto 40px auto; }
-        .input-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
-        input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 100%; box-sizing: border-box; }
-        label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; color: #555; }
-        button { padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-gen { background-color: #007bff; color: white; }
-        .btn-print { background-color: #28a745; color: white; margin-left: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .no-print { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 1000px; margin: 0 auto 40px auto; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .field-group { display: flex; flex-direction: column; }
+        label { font-size: 0.8rem; font-weight: bold; margin-bottom: 6px; color: #555; text-transform: uppercase; }
+        input { padding: 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 1rem; }
+        .actions { text-align: right; border-top: 1px solid #eee; padding-top: 20px; }
+        button { padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.2s; }
+        .btn-update { background-color: #0061f2; color: white; }
+        .btn-print { background-color: #00ac69; color: white; margin-left: 10px; }
         
-        /* A4 Page Layout */
-        .a4-container {
+        /* A4 Document Styling */
+        .document-container {
             width: 210mm;
-            min-height: 297mm;
             padding: 15mm;
             margin: 0 auto;
             background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
             box-sizing: border-box;
-            position: relative;
+            line-height: 1.5;
         }
 
-        .contract-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; }
-        .contract-header h2 { margin: 0; font-size: 16pt; text-transform: uppercase; }
+        .contract-section { font-size: 10pt; text-align: justify; margin-bottom: 25px; white-space: pre-wrap; }
+        .urdu { 
+            direction: rtl; 
+            font-family: 'Noto Nastaliq Urdu', serif; 
+            font-size: 12pt; 
+            line-height: 2.2; 
+            text-align: right; 
+            border-top: 2px solid #000; 
+            padding-top: 20px;
+            margin-top: 20px;
+        }
         
-        .section-box { font-size: 9.5pt; line-height: 1.3; margin-bottom: 15px; text-align: justify; }
-        .urdu-section { direction: rtl; font-family: 'Times New Roman', serif; font-size: 11pt; line-height: 1.5; border-top: 1px solid #ccc; padding-top: 15px; }
+        h2, h3 { text-align: center; text-decoration: underline; margin-bottom: 20px; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 8.5pt; }
-        th, td { border: 1px solid #000; padding: 4px; text-align: center; }
-        th { background-color: #f2f2f2; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 9pt; }
+        th, td { border: 1px solid #000; padding: 6px; text-align: center; }
+        th { background-color: #f8f9fa; }
 
-        .sig-block { display: flex; justify-content: space-between; margin-top: 20px; font-weight: bold; font-size: 10pt; }
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+        .sig-line { border-top: 1px solid #000; margin-top: 40px; padding-top: 5px; text-align: center; font-weight: bold; }
 
         @media print {
-            .no-print { display: none; }
             body { background: none; padding: 0; }
-            .a4-container { margin: 0; border: none; box-shadow: none; width: 100%; height: auto; }
-            @page { size: A4; margin: 10mm; }
+            .no-print { display: none; }
+            .document-container { box-shadow: none; margin: 0; width: 100%; padding: 10mm; }
+            .contract-section, .urdu { page-break-inside: auto; }
+            @page { size: A4; margin: 0; }
         }
     </style>
 </head>
 <body>
 
 <div class="no-print">
-    <h2 style="margin-top:0">Tenant Details Input</h2>
-    <div class="input-row">
-        <div><label>City</label><input type="text" id="city" value="Faisalabad"></div>
-        <div><label>Date</label><input type="text" id="date" placeholder="17th March 2026"></div>
-        <div><label>Monthly Rent (Rs.)</label><input type="text" id="rentVal" placeholder="e.g. 30,000"></div>
+    <h2 style="text-decoration: none; text-align: left;">Contract Data Entry</h2>
+    <div class="input-grid">
+        <div class="field-group"><label>City</label><input type="text" id="in_city" value="Faisalabad"></div>
+        <div class="field-group"><label>Date</label><input type="text" id="in_date" placeholder="17th March"></div>
+        <div class="field-group"><label>Monthly Rent (PKR)</label><input type="number" id="in_rent" placeholder="30000"></div>
     </div>
-    <div class="input-row">
-        <div><label>Landlord Name</label><input type="text" id="lName"></div>
-        <div><label>Landlord Father Name</label><input type="text" id="lFname"></div>
-        <div><label>Landlord CNIC</label><input type="text" id="lCnic"></div>
+    <div class="input-grid">
+        <div class="field-group"><label>Landlord Name</label><input type="text" id="in_lName"></div>
+        <div class="field-group"><label>Landlord Father</label><input type="text" id="in_lFname"></div>
+        <div class="field-group"><label>Landlord CNIC</label><input type="text" id="in_lCnic"></div>
+        <div class="field-group"><label>Landlord Address</label><input type="text" id="in_lAddr"></div>
     </div>
-    <div class="input-row">
-        <div><label>Tenant Name</label><input type="text" id="tName"></div>
-        <div><label>Tenant Father Name</label><input type="text" id="tFname"></div>
-        <div><label>Tenant CNIC</label><input type="text" id="tCnic"></div>
+    <div class="input-grid">
+        <div class="field-group"><label>Tenant Name</label><input type="text" id="in_tName"></div>
+        <div class="field-group"><label>Tenant Father</label><input type="text" id="in_tFname"></div>
+        <div class="field-group"><label>Tenant CNIC</label><input type="text" id="in_tCnic"></div>
+        <div class="field-group"><label>Tenant Perm. Address</label><input type="text" id="in_tAddr"></div>
     </div>
-    <div class="input-row">
-        <div><label>Landlord Address</label><input type="text" id="lAddr"></div>
-        <div><label>Tenant Permanent Address</label><input type="text" id="tAddr"></div>
-    </div>
-    <div style="text-align:right">
-        <button class="btn-gen" onclick="generate()">Generate Contract</button>
-        <button class="btn-print" onclick="window.print()">Print (A4)</button>
+    <div class="actions">
+        <button class="btn-update" onclick="syncData()">Update Agreement</button>
+        <button class="btn-print" onclick="window.print()">Print to A4</button>
     </div>
 </div>
 
-<div class="a4-container">
-    <div class="contract-header"><h2>Rental Agreement</h2></div>
-    <div class="section-box">
-        This Deed of Agreement is made at <strong><span id="v_city">_______</span></strong> on this <strong><span id="v_date">_______</span></strong>.<br><br>
-        <strong>LANDLORD:</strong> <span id="v_lName">_______</span> s/o <span id="v_lFname">_______</span>, Resident of <span id="v_lAddr">_______</span>, CNIC: <span id="v_lCnic">_______</span>.<br>
-        <strong>TENANT:</strong> <span id="v_tName">_______</span> s/o <span id="v_tFname">_______</span>, Resident of <span id="v_tAddr">_______</span>, CNIC: <span id="v_tCnic">_______</span>.
+<div class="document-container">
+    <h3>Rental Agreement</h3>
+    <div class="contract-section">
+This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</span></strong> on this <strong><span class="out_date">[Insert Date]</span></strong> day of March, 2026.
+
+<strong>BETWEEN</strong>
+
+<strong><span class="out_lName">[Landlord Name]</span></strong>, s/o <span class="out_lFname">[Father's Name]</span>, Resident of <span class="out_lAddr">[Address]</span>, holding CNIC No: <span class="out_lCnic">[CNIC]</span>, hereinafter referred to as the <strong>LANDLORD</strong> (First Party).
+
+<strong>AND</strong>
+
+<strong><span class="out_tName">[Tenant Name]</span></strong>, s/o <span class="out_tFname">[Father's Name]</span>, Resident of <span class="out_tAddr">[Permanent Address]</span>, holding CNIC No: <span class="out_tCnic">[CNIC]</span>, hereinafter referred to as the <strong>TENANT</strong> (Second Party).
+
+<strong>TERMS AND CONDITIONS</strong>
+
+1. <strong>Minimum Residency & Security Forfeiture:</strong> The Tenant is bound by a minimum stay of <strong>one (1) year</strong>. If the Tenant vacates the property for any reason before completing the full 12-month term—regardless of whether a notice period is provided or not—the total Security Deposit shall be forfeited in favor of the Landlord and will not be refunded.
+2. <strong>Annual Rent Increase:</strong> The monthly rent shall automatically increase by <strong>10%</strong> at the completion of every 12-month cycle from the date of signing.
+3. <strong>Monthly Rent & Late Penalties:</strong> Rent is payable in advance by the <strong>10th of every month</strong>. If payment is delayed beyond the 15th, a penalty of <strong>7% of the total monthly rent</strong> will be charged. If the Tenant fails to pay, the amount will be deducted from the security deposit. If the security is exhausted, the Tenant must vacate immediately.
+4. <strong>Security Deposit Structure:</strong> The total Security Deposit is a fixed amount equal to <strong>two (2) months' rent</strong>. The payment schedule for this deposit is as follows:
+• <strong>First Half (Equal to 1 month's rent):</strong> Must be paid within the first <strong>30 days</strong> of tenancy.
+• <strong>Second Half (Equal to 1 month's rent):</strong> Must be paid in full by the end of the <strong>third (3rd) month</strong> of tenancy.
+• <strong>Strict Penalty:</strong> If the Tenant fails to complete the second half of the security payment by the end of the third month, the first half already paid will be <strong>automatically voided (forfeited)</strong>, and the Tenant must vacate the property immediately.
+5. <strong>Utility Bill Verification:</strong> The Tenant is responsible for all utility charges (Electricity, Gas, Water, Trash). The Tenant must provide proof of paid bills to the Landlord by the <strong>10th of every month</strong>. Failure to show paid receipts is a breach of contract.
+6. <strong>Bi-Annual Safety & Compliance Inspection:</strong> The Landlord reserves the right to enter and inspect the property every <strong>six (6) months</strong> to ensure safety, structural integrity, and compliance. The Tenant is obligated to facilitate this inspection.
+7. <strong>Inspection & Video Evidence:</strong> The Tenant confirms the property is in pristine condition. A complete video recording has been established as evidence. No future claims regarding pre-existing damages will be entertained.
+8. <strong>Maintenance & On-Going Repairs:</strong> All damages occurring during the tenancy (plumbing, electrical, woodwork, paint, etc.) must be repaired by the <strong>Tenant at their own expense immediately</strong>. The Landlord is not responsible for any repair or maintenance costs during the stay.
+9. <strong>Final Settlement:</strong> The Security Deposit will be refunded <strong>two (2) months after</strong> the property is vacated (only after the 1-year minimum is met). The Landlord will deduct final unpaid bills and costs for any damages found during the final exit inspection.
+10. <strong>Notice Period:</strong> A two-month (2) written notice is mandatory before vacating the property (applicable only after the first year has been completed).
+11. <strong>Legal Compliance:</strong> No Afghan nationals are allowed. The Tenant must be a Pakistani citizen with a valid CNIC and must complete Police Khidmat Markaz verification within 3 days.
+
+<strong>SIGNATURES</strong>
+
+<div class="signature-grid">
+    <div class="sig-line">LANDLORD</div>
+    <div class="sig-line">TENANT</div>
+    <div class="sig-line">WITNESS 1 (Name & CNIC)</div>
+    <div class="sig-line">WITNESS 2 (Name & CNIC)</div>
+</div>
     </div>
 
-    <div class="section-box" style="font-size: 8pt; columns: 2; gap: 20px;">
-        1. <strong>Min Stay:</strong> 1 Year. Early exit results in full security forfeiture. 2. <strong>Increase:</strong> 10% annual increase. 3. <strong>Rent:</strong> Payable by 10th. 7% fine after 15th. 4. <strong>Security:</strong> 2 months total. Half in 30 days, second half in 90 days. Failure to pay 2nd half voids 1st half and leads to eviction. 5. <strong>Bills:</strong> Paid by 10th. 6. <strong>Inspection:</strong> Every 6 months. 7. <strong>Evidence:</strong> Video recorded. 8. <strong>Maintenance:</strong> Tenant pays for ALL repairs. 9. <strong>Notice:</strong> 2 months (after 1st year). 10. <strong>Legal:</strong> No Afghan nationals; Police verification mandatory.
+    <div class="urdu">
+        <h3>اقرار نامہ کرایہ داری</h3>
+        <p style="text-align: center;">شروع اللہ کے نام سے جو نہایت مہربان اور رحم کرنے والا ہے۔</p>
+        یہ اقرار نامہ آج بتاریخ <strong><span class="out_date">[Insert Date]</span></strong> بمقام <strong><span class="out_city">فیصل آباد</span></strong> فریقین کے مابین طے پایا۔
+
+<strong>فریقین</strong>
+
+<strong>1۔ مالک مکان (فریقِ اول):</strong> <strong><span class="out_lName">_______</span></strong> ولد <span class="out_lFname">_______</span>، ساکن <span class="out_lAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_lCnic">_______</span>۔
+<strong>2۔ کرایہ دار (فریقِ دوم):</strong> <strong><span class="out_tName">_______</span></strong> ولد <span class="out_tFname">_______</span>، ساکن <span class="out_tAddr">_______</span>، شناختی کارڈ نمبر: <span class="out_tCnic">_______</span>۔
+
+<strong>شرائط و ضوابط</strong>
+
+1۔ <strong>کم از کم مدت و ضمانت کی ضبطی:</strong> کرایہ دار کم از کم <strong>ایک سال</strong> رہنے کا پابند ہے۔ اگر کرایہ دار ایک سال کی مدت مکمل ہونے سے پہلے مکان خالی کرتا ہے—خواہ نوٹس دیا گیا ہو یا نہیں—تو مکمل سیکیورٹی ڈپازٹ مالک مکان کے حق میں ضبط کر لیا جائے گا اور واپسی نہ ہوگی۔
+2۔ <strong>سالانہ اضافہ:</strong> ہر بارہ (12) ماہ کی مدت مکمل ہونے پر ماہانہ کرایہ میں <strong>10 فیصد</strong> خودکار اضافہ ہوگا۔
+3۔ <strong>کرایہ کی ادائیگی اور جرمانہ:</strong> ماہانہ کرایہ ہر مہینے کی <strong>10 تاریخ</strong> تک ادا کرنا لازمی ہے۔ اگر ادائیگی 15 تاریخ سے تجاوز کر جائے تو کل کرایہ پر <strong>7 فیصد جرمانہ</strong> ادا کرنا ہوگا۔ اگر کرایہ یا جرمانہ ادا نہ ہوا تو یہ سیکیورٹی سے کاٹ لیا جائے گا، اور سیکیورٹی ختم ہونے پر کرایہ دار فوراً مکان خالی کرنے کا پابند ہوگا۔
+4۔ <strong>سیکیورٹی ڈپازٹ کی ترتیب:</strong> سیکیورٹی ڈپازٹ کی کل رقم <strong>دو (2) ماہ کے کرایے</strong> کے برابر ہوگی، جس کی ادائیگی درج ذیل طریقے سے ہوگی:
+• <strong>پہلی قسط (ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>30 دن</strong> کے اندر ادا کرنا ہوگی۔
+• <strong>دوسری قسط (مزید ایک ماہ کا کرایہ):</strong> کرایہ داری کے پہلے <strong>تین (3) ماہ</strong> کے اندر ہر صورت ادا کرنا ہوگی۔
+• <strong>سخت سزا:</strong> اگر کرایہ دار تیسرے مہینے کے اختتام تک دوسری قسط ادا کرنے میں ناکام رہا، تو پہلی دی گئی رقم <strong>خودکار طور پر منسوخ (ضبط)</strong> تصور ہوگی اور کرایہ دار کو فوراً مکان خالی کرنا ہوگا۔
+5۔ <strong>یوٹیلیٹی بلز کی تصدیق:</strong> بجلی، گیس، پانی اور کوڑا اٹھانے کے بلز کی بروقت ادائیگی کرایہ دار کی ذمہ داری ہے۔ کرایہ دار ہر مہینے کی <strong>10 تاریخ</strong> تک مالک مکان کو ادا شدہ اصل بلز دکھانے کا پابند ہوگا۔
+6۔ <strong>ششماہی معائنہ (Bi-Annual Inspection):</strong> مالک مکان یا ان کا نمائندہ ہر <strong>چھ (6) ماہ</strong> بعد مکان کی حفاظت اور قانونی حالت چیک کرنے کے لیے معائنہ کر سکے گا۔ کرایہ دار اس معائنے میں مکمل تعاون کرنے کا پابند ہے۔
+7۔ <strong>ویڈیو ثبوت اور معائنہ:</strong> کرایہ دار نے قبضہ لینے سے پہلے مکان کی مکمل تسلی کر لی ہے۔ مکان کی <strong>مکمل ویڈیو</strong> ثبوت کے طور پر بنا لی گئی ہے۔ بعد میں کسی بھی قسم کا دعویٰ کہ "یہ پہلے سے ٹوٹا ہوا تھا" قابلِ قبول نہیں ہوگا۔
+8۔ <strong>مرمت اور دیکھ بھال:</strong> دورانِ رہائش مکان میں ہونے والی ہر طرح کی مرمت (پلمبنگ، بجلی، لکڑی کا کام، پینٹ وغیرہ) کرایہ دار <strong>فوراً اپنے خرچے پر</strong> کروانے کا ذمہ دار ہوگا۔ مالک مکان کسی بھی قسم کے مرمتی اخراجات کا ذمہ دار نہ ہوگا۔
+9۔ <strong>سیکیورٹی کی واپسی:</strong> سیکیورٹی کی رقم مکان خالی کرنے کے <strong>دو (2) ماہ بعد</strong> (ایک سال کی شرط پوری ہونے پر) واپس کی جائے گی۔ آخری بلز اور وہ نقصانات جو کرایہ دار نے درست نہ کیے ہوں، ان کے اخراجات منہا کر کے باقی رقم رسیدات کے ساتھ واپس ہوگی۔
+10۔ <strong>نوٹس کی مدت:</strong> ایک سال مکمل ہونے کے بعد، مکان خالی کرنے کے لیے <strong>دو (2) ماہ کا تحریری نوٹس</strong> دینا لازمی ہے۔
+11۔ <strong>قانونی تعمیل:</strong> حکومتِ پاکستان کے قوانین کے مطابق کسی بھی افغانی باشندے کو رہنے کی اجازت نہیں ہے۔ کرایہ دار کا پاکستانی ہونا اور 3 دن کے اندر <strong>پولیس خدمت مرکز</strong> سے ویریفیکیشن کروانا لازمی ہے۔
+
+<strong>دستخط</strong>
+<div class="signature-grid">
+    <div class="sig-line">مالک مکان</div>
+    <div class="sig-line">کرایہ دار</div>
+    <div class="sig-line">گواہ نمبر 1 (نام و شناختی کارڈ نمبر)</div>
+    <div class="sig-line">گواہ نمبر 2 (نام و شناختی کارڈ نمبر)</div>
+</div>
     </div>
 
-    <div class="urdu-section">
-        <h3 style="text-align:center; margin:0 0 10px 0;">اقرار نامہ کرایہ داری</h3>
-        <div style="font-size: 10pt; line-height: 1.4;">
-            یہ اقرار نامہ مقام <strong><span id="u_city">_______</span></strong> بتاریخ <strong><span id="u_date">_______</span></strong> طے پایا۔<br>
-            <strong>مالک مکان:</strong> <span id="u_lName">_______</span> ولد <span id="u_lFname">_______</span>، شناختی کارڈ: <span id="u_lCnic">_______</span>۔<br>
-            <strong>کرایہ دار:</strong> <span id="u_tName">_______</span> ولد <span id="u_tFname">_______</span>، شناختی کارڈ: <span id="u_tCnic">_______</span>۔
-        </div>
-        <div style="font-size: 8.5pt; line-height: 1.4; margin-top:5px;">
-            ۱۔ مدت: ۱ سال، جلد چھوڑنے پر سیکیورٹی ضبط۔ ۲۔ اضافہ: ۱۰٪ سالانہ۔ ۳۔ کرایہ: ۱۰ تاریخ تک، لیٹ ہونے پر ۷٪ جرمانہ۔ ۴۔ سیکیورٹی: کل ۲ ماہ۔ آدھی ۳۰ دن میں، باقی ۹۰ دن میں۔ ۵۔ بلز: ۱۰ تاریخ تک ادائیگی۔ ۶۔ معائنہ: ہر ۶ ماہ بعد۔ ۷۔ مرمت: تمام خرچہ کرایہ دار کے ذمہ۔ ۸۔ قانونی: افغانی باشندہ ممنوع، پولیس تصدیق لازمی۔
-        </div>
-    </div>
-
-    <div style="margin-top: 15px;">
-        <strong style="font-size: 9pt;">1. SECURITY DEPOSIT TRACKING (2 Months Total)</strong>
+    <div style="page-break-before: always; padding-top: 20px;">
+        <h3>Payment Tracking & Inspection Logs</h3>
+        
+        <strong>1. SECURITY DEPOSIT TRACKING (2 Months Total)</strong>
         <table>
             <tr>
                 <th>Installment</th>
@@ -108,44 +173,48 @@
                 <th>Amount (PKR)</th>
                 <th>Date Paid</th>
                 <th>Tenant Sign</th>
-                <th>Landlord</th>
+                <th>Landlord Sign</th>
             </tr>
             <tr>
-                <td>1st Half (30 Days)</td>
-                <td></td>
-                <td id="s_half1"></td>
+                <td>1st Half (1 Month)</td>
+                <td>Within 30 Days</td>
+                <td class="out_halfRent"></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td>2nd Half (90 Days)</td>
-                <td></td>
-                <td id="s_half2"></td>
+                <td>2nd Half (1 Month)</td>
+                <td>Within 90 Days</td>
+                <td class="out_halfRent"></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
         </table>
 
-        <strong style="font-size: 9pt; display:block; margin-top:10px;">2. BI-ANNUAL INSPECTION RECORD</strong>
+        <br>
+        <strong>2. BI-ANNUAL INSPECTION RECORD</strong>
         <table>
             <tr>
                 <th>Visit</th>
                 <th>Scheduled Date</th>
-                <th>Condition & Compliance Notes</th>
-                <th>Repairs Done?</th>
-                <th>Sign</th>
+                <th>Structural / Compliance Status</th>
+                <th>Repairs Noted</th>
+                <th>Tenant Sign</th>
+                <th>Owner Sign</th>
             </tr>
             <tr>
-                <td>6-Month</td>
+                <td>Month 6</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td>12-Month</td>
+                <td>Month 12</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -153,27 +222,33 @@
             </tr>
         </table>
     </div>
-
-    <div class="sig-block">
-        <div>Landlord: ________________</div>
-        <div>Tenant: ________________</div>
-        <div>Witness: ________________</div>
-    </div>
 </div>
 
 <script>
-    function generate() {
-        const ids = ['city', 'date', 'lName', 'lFname', 'lCnic', 'lAddr', 'tName', 'tFname', 'tCnic', 'tAddr'];
-        ids.forEach(id => {
-            const val = document.getElementById(id).value || "_______";
-            if(document.getElementById('v_'+id)) document.getElementById('v_'+id).innerText = val;
-            if(document.getElementById('u_'+id)) document.getElementById('u_'+id).innerText = val;
-        });
-        
-        const rent = document.getElementById('rentVal').value;
+    function syncData() {
+        const mapping = {
+            'in_city': 'out_city',
+            'in_date': 'out_date',
+            'in_lName': 'out_lName',
+            'in_lFname': 'out_lFname',
+            'in_lCnic': 'out_lCnic',
+            'in_lAddr': 'out_lAddr',
+            'in_tName': 'out_tName',
+            'in_tFname': 'out_tFname',
+            'in_tCnic': 'out_tCnic',
+            'in_tAddr': 'out_tAddr'
+        };
+
+        for (let inputId in mapping) {
+            const val = document.getElementById(inputId).value || "_______";
+            const targets = document.getElementsByClassName(mapping[inputId]);
+            for(let t of targets) { t.innerText = val; }
+        }
+
+        const rent = document.getElementById('in_rent').value;
         if(rent) {
-            document.getElementById('s_half1').innerText = rent;
-            document.getElementById('s_half2').innerText = rent;
+            const targets = document.getElementsByClassName('out_halfRent');
+            for(let t of targets) { t.innerText = rent; }
         }
     }
 </script>
