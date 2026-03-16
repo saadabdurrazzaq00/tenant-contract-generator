@@ -279,41 +279,68 @@ This Deed of Agreement is made at <strong><span class="out_city">Faisalabad</spa
             'in_lFname': 'out_lFname', 'in_lCnic': 'out_lCnic', 'in_lAddr': 'out_lAddr',
             'in_tName': 'out_tName', 'in_tFname': 'out_tFname', 'in_tCnic': 'out_tCnic', 'in_tAddr': 'out_tAddr'
         };
-
-        // 1. Handle regular text fields
+    
+        // 1. Check for empty fields
+        for (let id in map) {
+            const input = document.getElementById(id);
+            if (!input.value.trim()) {
+                alert(`Please fill in: ${input.previousElementSibling.innerText}`);
+                input.focus();
+                return; // Stop the update
+            }
+        }
+    
+        // 2. Validate CNIC (Must be 13 digits)
+        const cnicFields = ['in_lCnic', 'in_tCnic'];
+        for (let id of cnicFields) {
+            let val = document.getElementById(id).value.replace(/-/g, "");
+            if (val.length !== 13 || isNaN(val)) {
+                alert("CNIC must be exactly 13 digits.");
+                document.getElementById(id).focus();
+                return;
+            }
+        }
+    
+        // 3. Date Validation (Must not be empty)
+        const dateInput = document.getElementById('in_date');
+        if (!dateInput.value) {
+            alert("Please select a contract date.");
+            dateInput.focus();
+            return;
+        }
+    
+        // 4. Rent Validation (Must be a positive number)
+        const rentInput = document.getElementById('in_rent');
+        if (rentInput.value <= 0) {
+            alert("Please enter a valid rent amount.");
+            rentInput.focus();
+            return;
+        }
+    
+        // --- If all validations pass, proceed with updating the UI ---
+    
+        // Apply text fields
         for (let key in map) {
-            let val = document.getElementById(key).value || "_______";
-            if (key.includes('Cnic') && val.length === 13 && !val.includes('-')) {
-                val = val.replace(/(\d{5})(\d{7})(\d{1})/, "$1-$2-$3");
+            let val = document.getElementById(key).value;
+            if (key.includes('Cnic')) {
+                val = val.replace(/-/g, "").replace(/(\d{5})(\d{7})(\d{1})/, "$1-$2-$3");
             }
             const els = document.getElementsByClassName(map[key]);
             for(let el of els) { el.innerText = val; }
         }
-
-        // 2. Handle the Date Selection
-        const dateVal = document.getElementById('in_date').value;
-        if(dateVal) {
-            const dateObj = new Date(dateVal);
-            
-            // This creates the exact "March 12, 2026" format
-            const options = { month: 'long', day: 'numeric', year: 'numeric' };
-            const formattedDate = dateObj.toLocaleDateString('en-US', options);
-            
-            // This removes the comma if you want it exactly like your screenshot
-            const finalDate = formattedDate.replace(',', '');
-
-            const dateOuts = document.getElementsByClassName('out_date');
-            for(let el of dateOuts) { 
-                el.innerText = finalDate; 
-            }
-        }
-
-        // 3. Handle Rent
-        const rent = document.getElementById('in_rent').value;
-        if(rent) {
-            const fields = document.getElementsByClassName('out_rentHalf');
-            for(let f of fields) { f.innerText = rent; }
-        }
+    
+        // Apply Date
+        const dateObj = new Date(dateInput.value);
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        const finalDate = dateObj.toLocaleDateString('en-US', options).replace(',', '');
+        const dateOuts = document.getElementsByClassName('out_date');
+        for(let el of dateOuts) { el.innerText = finalDate; }
+    
+        // Apply Rent
+        const fields = document.getElementsByClassName('out_rentHalf');
+        for(let f of fields) { f.innerText = rentInput.value; }
+        
+        alert("Contract updated successfully!");
     }
 </script>
 </body>
